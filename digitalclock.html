@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html> 
+    <head> 
+        <title>Digital Clock</title>   
+
+            <!--  برای پیدا کردن کد رنگ های مورد نظرم از هوش مصنوعی(گوگل) کمک گرفتم. 
+              and for adding emoji I downloaded ibus  -->
+      
+            <style>
+
+                body {
+                    background: linear-gradient(135deg, #ffd1dc, #b19ffb, #a8e6cf);
+                    background-size: 400% 400%;
+                    animation: gradientBG 15s ease infinite;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+
+                @keyframes gradientBG {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+
+
+                .clock {
+                    background: rgba(255, 255, 255, 0.45);
+                    padding: 40px 60px;
+                    border-radius: 30px;
+                    border: 2px solid rgba(255, 255, 255, 0.6);
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                    text-align: center;
+                    position: relative;
+                }
+
+                .clock-container::before {
+                    content: "✨ ✨";
+                    font-size: 24px;
+                    position: absolute;
+                    top: -20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    letter-spacing: 15px;
+                }
+
+                .time {
+                    display: flex;
+                    align-items: baseline;
+                    justify-content: center;
+                }
+
+                .numbers {
+                    color: #4a3b75;
+                    font-size: 85px;
+                    font-weight: 800;
+                    margin: 0;
+                    letter-spacing: 2px;
+                    text-shadow: 2px 4px 0px rgba(255, 255, 255, 0.8);
+                }
+
+                .period {
+                    color: #6c5ce7;
+                    font-size: 26px;
+                    font-weight: 700;
+                    margin-left: 15px;
+                    background-color: rgba(255, 255, 255, 0.6);
+                    padding: 4px 10px;
+                    border-radius: 10px;
+                }
+
+            </style>
+    </head>   
+        <body>
+            
+            <div class="clock-container">
+                <div class="clock">
+                <span class="numbers" id="clock-text">00:00:00</span>
+                <span class="period" id="am-pm">AM</span>
+                </div>
+            </div>
+                
+                <script> 
+                    function updateClock() {
+                        const now = new Date();
+
+                        let h = now.getHours();
+                        let m = now.getMinutes();
+                        let s = now.getSeconds();
+                        let ampm = "AM";
+
+
+                        if (h >= 12) {
+                            ampm = "PM";
+
+                        }
+
+                        if (h > 12) {
+                            h = h - 12;
+                        }
+
+                        if (h == 0) {
+                            h = 12;
+                        }
+
+
+                                if (h < 10) h = "0" + h;
+                                if (m < 10) m = "0" + m;
+                                if ( s < 10) s = "0" + s;
+
+                document.getElementById("clock-text").innerHTML = h + ":" + m + ":" + s;
+                document.getElementById("am-pm".innerText = ampm);
+            }
+
+                    setInterval(updateClock, 1000);
+                    updateClock();
+                </script> 
+        </body>
+</html>
