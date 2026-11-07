@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Bamyan Quiz</title>
+
+    <link rel="icon" type="image/jpeg " href="images/B.jpeg">
+
+    <style>
+
+
+        body {
+            background-color: #f6effa;
+            font-family: Arial;
+            text-align: center;
+            padding: 40px 15px;
+        }
+
+        .box {
+            background-color: white;
+            max-width: 430px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px #e4d5ec;
+        }
+
+            h1 {
+                color: #a987bd;
+                font-size: 27px;
+            }
+
+             p {
+                 color: #aaa0b4;
+            }
+
+             h2 {
+                 color: #79658a;
+                 font-size: 20px;
+                 margin: 30px 0;
+             }
+
+           button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 12px;
+            background-color: #eee3f8;
+            color: #806b91;
+            font-size: 15px;
+            cursor: pointer;
+            }
+
+        button:hover {
+            background-color: #f5dce9;
+            }
+
+        #next {
+            background-color: #d9efdf;
+            color: #60856b;
+            }
+
+        #message {
+            color: #a987bd;
+            }
+
+        #result {
+            color: #a987bd;
+            font-size: 20px;
+           }
+
+    </style>
+</head>
+
+<body>
+
+             <div class="box">
+
+                    <h1>Bamyan Quiz</h1>
+
+                    <p>Test your knowledge about Bamyan</p>
+
+                    <h2 id="question"></h2>
+
+                    <div id="answers"></div>
+
+                    <p id="message"></p>
+
+
+    <button id="next" onclick="nextQuestion()" style="display:none;">
+        Next Question
+    </button>
+
+                    <h2 id="result"></h2>
+
+            </div>
+
+<script>
+
+    var questions = [
+
+    {
+        question: "Where is Bamyan located?",
+        options: ["Afghanistan", "Iran", "Pakistan", "India"],
+        answer: 0
+    },
+
+    {
+        question: "What is Bamyan famous for?",
+        options: ["Beaches", "Buddha Statues", "Oceans", "Forests"],
+        answer: 1
+    },
+
+    {
+        question: "Which famous lake is in Bamyan?",
+        options: ["Band-e Amir", "Lake Victoria", "Lake Baikal", "Lake Superior"],
+        answer: 0
+    },
+
+    {
+        question: "Which language is widely spoken in Bamyan?",
+        options: ["French", "Arabic", "Dari", "Spanish"],
+        answer: 2
+    },
+
+    {
+        question: "What is the winter weather like in Bamyan?",
+        options: ["Hot", "Cold and snowy", "Warm", "Tropical"],
+        answer: 1
+    }
+
+];
+
+        var number = 0;
+        var score = 0;
+        var time = 5;
+        var answered = false;
+        var timer;
+
+            function showQuestion() {
+
+                answered = false;
+                time = 5;
+
+                     document.getElementById("question").innerHTML = questions[number].question;
+                    
+                     document.getElementById("answers").innerHTML = "";
+
+                     document.getElementById("message").innerHTML ="Time: " + time;           
+
+                     document.getElementById("next").style.display = "none";
+
+         for (var i = 0; i < 4; i++) {
+
+               document.getElementById("answers").innerHTML +=
+               "<button onclick='checkAnswer(" + i + ")'>" +
+               questions[number].options[i] + "</button>";
+
+    }
+
+    timer = setInterval(countTime, 1000);
+
+}
+
+            function countTime() {
+
+                time--;
+
+                document.getElementById("message").innerHTML ="Time: " + time;
+        
+        if (time == 0) {
+
+        clearInterval(timer);
+
+        answered = true;
+
+        document.getElementById("message").innerHTML =
+            "Time is over!";
+
+        nextQuestion();
+
+    }
+
+}
+
+        function checkAnswer(choice) {
+
+    if (answered == true) {
+        return;
+    }
+
+    answered = true;
+
+    clearInterval(timer);
+
+    if (choice == questions[number].answer) {
+
+        score++;
+
+        document.getElementById("message").innerHTML =
+            "Correct Answer!";
+
+    } else {
+
+        document.getElementById("message").innerHTML =
+            "Wrong Answer!";
+
+    }
+
+    document.getElementById("next").style.display = "block";
+
+}
+
+                function nextQuestion() {
+
+                    clearInterval(timer);
+
+                    number++;
+
+                    if (number < 5) {
+
+                    showQuestion();
+
+                    } else {
+
+        document.getElementById("question").innerHTML ="Quiz Finished";
+            
+        document.getElementById("answers").innerHTML = "";
+
+        document.getElementById("message").innerHTML = "";
+
+        document.getElementById("next").style.display = "none";
+
+        document.getElementById("result").innerHTML ="Your Score: " + score + " / 5";
+            
+
+    }
+
+}
+
+            showQuestion();
+
+</script>
+
+</body>
+</html>
